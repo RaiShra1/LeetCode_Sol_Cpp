@@ -1,0 +1,42 @@
+Given a binary search tree, write a function kthSmallest to find the kth smallest element in it.
+
+Note:
+You may assume k is always valid, 1 ≤ k ≤ BST's total elements.
+
+Input: root = [5,3,6,2,4,null,null,1], k = 3
+       5
+      / \
+     3   6
+    / \
+   2   4
+  /
+ 1
+Output: 3
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector <int> inorder(TreeNode* root, vector<int> nums){
+            if(root==NULL) return nums  ;
+            nums=inorder(root->left,nums);
+            nums.push_back(root->val);
+            nums=inorder(root->right,nums);
+            return nums;
+        }
+
+    int kthSmallest(TreeNode* root, int k) {
+        vector<int> res;
+        res=inorder(root,res);
+        int output=res[k-1];
+        return output;
+        
+    }
+};
